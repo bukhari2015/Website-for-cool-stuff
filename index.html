@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>NEXUS OS // v4.2</title>
+<meta name="theme-color" content="#05060a" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-cyber">
+
+<!-- ══════════════════════════════════════════════════════════
+     BOOT SEQUENCE
+     ══════════════════════════════════════════════════════════ -->
+<div id="boot" class="boot">
+  <div class="boot-scan"></div>
+  <div class="boot-inner">
+    <div class="boot-logo">NEXUS<span>OS</span></div>
+    <div id="bootLines" class="boot-lines"></div>
+    <div class="boot-bar-wrap">
+      <div class="boot-bar"><i id="bootBar"></i></div>
+      <div class="boot-pct"><span id="bootPct">0</span>%</div>
+    </div>
+    <div id="bootReady" class="boot-ready">PRESS ANY KEY TO ENTER</div>
+    <div class="boot-hint">CLICK · TAP · OR PRESS ANY KEY</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN OS SHELL
+     ══════════════════════════════════════════════════════════ -->
+<div id="os" class="os">
+
+  <!-- 3D / WebGL background layer -->
+  <canvas id="gl" class="gl-canvas"></canvas>
+  <div class="grid-overlay"></div>
+  <div class="vignette"></div>
+  <div class="scanlines"></div>
+  <div id="chaosLayer" class="chaos-layer"></div>
+
+  <!-- ── TOP NAVIGATION ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-logo" id="navLogo" title="NEXUS">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">NEXUS<em>OS</em></span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <button data-nav="hub">HOME</button>
+      <button data-nav="games">GAMES</button>
+      <button data-nav="laptop">LAPTOP</button>
+      <button data-nav="car">CARS</button>
+      <button data-nav="science">SCIENCE</button>
+      <button data-nav="space">SPACE</button>
+      <button data-nav="arcade">ARCADE</button>
+      <button data-nav="system">SYSTEM</button>
+    </nav>
+    <div class="nav-status">
+      <span class="stat-dot"></span>
+      <span id="navClock">--:--:--</span>
+      <button id="soundToggle" class="icon-btn" title="Sound">🔊</button>
+      <button id="chaosToggle" class="icon-btn danger" title="Chaos Mode">☢</button>
+    </div>
+  </header>
+
+  <!-- ── HUB VIEW (holographic core + section cards) ── -->
+  <section id="view-hub" class="view view-hub active">
+    <div class="hub-core-label">
+      <div class="core-title">NEXUS CORE</div>
+      <div class="core-sub" id="coreSub">SYSTEM STABLE · ALL MODULES ONLINE</div>
+    </div>
+    <div class="hub-ring" id="hubRing">
+      <!-- section cards injected by JS -->
+    </div>
+    <div class="hub-footer">
+      <div class="hud-chip">FPS <b id="fpsRead">60</b></div>
+      <div class="hud-chip">MODE <b id="modeRead">HIGH</b></div>
+      <div class="hud-chip">UPTIME <b id="uptime">00:00</b></div>
+    </div>
+  </section>
+
+  <!-- ── WINDOW LAYER ── -->
+  <div id="windowLayer" class="window-layer"></div>
+
+  <!-- ── DOCK ── -->
+  <div class="dock" id="dock">
+    <button class="dock-btn" data-app="files"     data-tip="FILES">📁</button>
+    <button class="dock-btn" data-app="browser"   data-tip="BROWSER">🌐</button>
+    <button class="dock-btn" data-app="games"     data-tip="GAME VAULT">🎮</button>
+    <button class="dock-btn" data-app="perf"      data-tip="PERFORMANCE">📊</button>
+    <button class="dock-btn" data-app="laptop"    data-tip="LAPTOP LAB">💻</button>
+    <button class="dock-btn" data-app="car"       data-tip="HYPERCAR">🏎️</button>
+    <button class="dock-btn" data-app="science"   data-tip="SCIENCE LAB">🧪</button>
+    <button class="dock-btn" data-app="arcade"    data-tip="ARCADE">🕹️</button>
+    <button class="dock-btn" data-app="space"     data-tip="UNIVERSE">🌌</button>
+    <button class="dock-btn" data-app="tech"      data-tip="TECH DATABASE">🛰️</button>
+    <button class="dock-btn" data-app="music"     data-tip="MUSIC">🎵</button>
+    <button class="dock-btn" data-app="terminal"  data-tip="TERMINAL">💻</button>
+    <button class="dock-btn" data-app="settings"  data-tip="SETTINGS">⚙️</button>
+    <div class="dock-glow"></div>
+  </div>
+
+  <!-- ── TOASTS ── -->
+  <div id="toasts" class="toasts"></div>
+
+  <!-- ── CURSOR PARTICLE LAYER ── -->
+  <canvas id="cursorFx" class="cursor-fx"></canvas>
+
+  <!-- ── CHAOS EXIT BUTTON ── -->
+  <button id="chaosExit" class="chaos-exit">⚠ EXIT CHAOS MODE</button>
+
+  <!-- ── SECRET ROOM ── -->
+  <div id="secretRoom" class="secret-room">
+    <div class="secret-inner">
+      <div class="secret-glyph">◉</div>
+      <h2>DEVELOPER ROOM</h2>
+      <p>You found the hidden chamber. The core recognizes you.</p>
+      <div class="secret-stats" id="secretStats"></div>
+      <button class="btn primary" id="secretClose">RETURN TO SYSTEM</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     LIBRARIES (free CDNs)
+     ══════════════════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="script.js"></script>
+</body>
+        </html>
